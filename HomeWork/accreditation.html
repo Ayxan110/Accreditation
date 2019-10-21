@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6" id="cnvs">
+                <canvas id="canvas" style="border: 1px solid black; width: 100%; height: 600px;">
+                </canvas>
+            </div>
+            <div class="info col-md-6">
+                <div class="form-group">
+                    <label for="name">Enter your name</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Enter your surname</label>
+                    <input type="text" class="form-control" id="surname" name="surname">
+                </div>
+                <div class="form-group">
+                    <label for="position">Enter your position</label>
+                    <select name="" id="position" style="display: block; width: 100%; height: 35px;">
+                        <option value="HR">HR</option>
+                        <option value="CEO">CEO</option>
+                        <option value="COO">COO</option>
+                    </select>
+                </div>
+                <div id="img">
+                    <img id="photo" style="width: 200px; height:200px; border: 1px solid black;">
+                </div>
+                <input type="file" style="display: none" id="select">
+                <button class="btn btn-success">Load</button>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        let canvas = document.getElementById('canvas');
+        let a = canvas.getContext('2d');
+        document.getElementsByClassName('btn')[0].addEventListener('click', function (e) {
+            e.preventDefault()
+            let name = document.getElementById('name').value;
+            let surname = document.getElementById('surname').value;
+            let position = document.getElementById('position').value;
+            let image = document.getElementById('photo');
+            a.font = "10px serif"
+            a.fillText(name, 100, 65);
+            a.fillText(surname, 170, 65);
+            a.fillText(position, 140, 100);
+            a.drawImage(image, 115, 10, 80, 40);
+        })
+        $('#img').click(function () {
+            $('#select').click()
+        })
+
+        $('#select').change(function () {
+            let input = document.getElementById('select').files[0];
+            let img = document.getElementById('photo');
+            let reader = new FileReader();
+            if (input) {
+                reader.readAsDataURL(input);
+            }
+            reader.onloadend = function () {
+                img.src = reader.result;
+            }
+        })
+    </script>
+</body>
+
+</html>
